@@ -23,7 +23,17 @@ class TrieTree {
     public function __construct() {
 
     }
-
+	/**
+	 * 初始化函数
+	 * @param $nodeTree 已tree序列化的json字符
+	 * @author	Jason	<1878566968@qq.com>
+	 */
+	public function init($nodeTree = null){
+		$tmp = json_decode($nodeTree,true);
+		if(!is_null($tmp)){
+			$this->nodeTree = $tmp;
+		}
+	}	
     /**
      * 从树种摘除一个文本
      * @param $index_str
@@ -393,4 +403,16 @@ class TrieTree {
         }
         return $chars;
     }
+	/**
+	 * @param string $replacement 用于替换的字符串
+	 * @param string $string 要进行替换的字符串 
+	 * @return string 替换后的字符串
+	 */
+	public function replace($replacement,$string){
+		$target = $this->search($string);	
+		foreach($target as $val){
+			$string = str_replace($val['word'],$replacement,$string);
+		}
+		return $string;
+	}
 }
